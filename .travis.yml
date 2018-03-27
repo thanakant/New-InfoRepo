@@ -1,0 +1,6 @@
+language: node_js
+
+install: true
+script: true
+after_success: 
+  - scp -i "ck.pem" -r html/* ubuntu@54.186.139.135:/var/www/html/
