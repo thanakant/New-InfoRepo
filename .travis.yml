@@ -1,17 +1,17 @@
 language: node_js
 sudo: required
 before_install: 
- -docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+ - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
 install: true
 before_script: 
- -export DOCKER_HOST="$HOST_NAME"
+ - export DOCKER_HOST="$HOST_NAME"
 script: 
- -docker build -t getgorok/htmltest . 
- -docker push getgorok/htmltest"
+ - docker build -t $DOCKER_USERNAME/htmltest . 
+ - docker push $DOCKER_USERNAME/htmltest"
 after_success:
  - docker stop htmltest
  - docker rm htmltest
- - docker run -p 8088:80 -d  getgorok/htmltest:latest
+ - docker run -p 8088:80 -d  --name htmltest $DOCKER_USERNAME/htmltest:latest
 service: docker
 env:
   global:
